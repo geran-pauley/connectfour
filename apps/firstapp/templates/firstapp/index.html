@@ -1,14 +1,167 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Connect Four</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="connect4css.css">
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+	<script type="text/javascript">
+
+
+		var board = [
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0],
+			[0, 0, 0, 0, 0, 0, 0]
+		];
+
+
+		function displayButtons() {
+			var output = '';
+
+			for (var x = 0; x < 7; x++) {
+				output += '<button onclick="droppiece()" class="dropbutton" id="' + x + '"></button> ';
+			}
+			document.getElementById('playbuttons').innerHTML = output;
+		}
+
+
+		function displayBoard() {
+			var output = '';
+
+			for (var x = 0; x < board.length; x++) {
+				output += '\n<div class="row">'
+				for (var y = 0; y < board[x].length; y++) {
+					if (board[x][y] == 0) {
+						output += '\n\t<div class="boardsquare"></div>';
+					} else if (board[x][y] == 1) {
+						output += '\n\t<div class="player1"></div>';
+					} else if (board[x][y] == 2) {
+						output += '\n\t<div class="player2"></div>';
+					}
+				}
+				output += '\n</div>';
+			}
+			document.getElementById('board').innerHTML = output;
+		}
+
+
+
+
+		function droppiece() {
+			var x = event.target.id
+			console.log(x + " Test")
+			for (var y = 5; y >= 0; y--) {
+				console.log(y + " Y")
+				if (board[y][x] === 0) {
+					console.log([y][x] + " Position")
+					board[y][x] = 1
+					console.log("test")
+					displayBoard();
+					return;
+
+				}
+			}
+
+		}
+
+
+	</script>
 
 </head>
-<body>
-    <h1>Would you like to play a game?</h1>
-    <p>No, fuck you bud</p>
+<body onload="displayBoard(), displayButtons()">
+	<div class='header'>
+			<h1>Connect Four</h1>
+			<p>Click to put a piece on the board!</p>
+			<div class='rightheader'>
+				<p class='welcome'>Welcome <a class='userpagelink' href='put whatever you need to here for a small div to pop up with this stuff'>{name}</a></p>
+				<p><a href='put whatever you need to here for a small div to pop up with this stuff'>Create Private Room</a> | <a href='/logout'>Logout</a></p>
+				<h3>Your current score: {score}</h3>
+			</div>
+		</div>
+	</div>
+	<div id='wrapper'>
+		<div class='left'>
+			<p>Player One: {name}</p><p style='margin-left: 265px;'>Player Two: {name}</p>
+			<p style="text-align: center; display: block; font-size: 12px;">End turn in: {timer}</p>
+			<div id='playbuttons'>
+			</div>
+			<div id='board'>
+			</div>
+		</div>
+
+		<div class='right'>
+			<div class="top">
+				<div class='queue'>
+					<h2>Queue</h2>
+					<div id='queuelist'>
+						<ol>
+							<li>Player 1</li>
+							<li>Player 2</li>
+							<li>Player 3</li>
+							<li>Player 4</li>
+							<li>Player 5</li>
+							<li>Player 6</li>
+							<li>Player 7</li>
+							<li>Player 9</li>
+							<li>Player 10</li>
+							<li>Player 11</li>
+							<li>Player 12</li>
+							<li>Player 13</li>
+							<li>Player 14</li>
+							<li>Player 15</li>
+							<li>Player 16</li>
+							<li>Player 17</li>
+							<li>Player 18</li>
+						</ol>
+					</div>
+				</div>
+
+				<div class='leaderboard'>
+					<h2>Leaderboard</h2>
+					<table>
+						<tr>
+							<td class='hsplayername'>1 - Player 13</td>
+							<td>------------</td>
+							<td>568</td>
+						</tr>
+						<tr>
+							<td class='hsplayername'>2 - Player 2</td>
+							<td>------------</td>
+							<td>421</td>
+						</tr>
+						<tr>
+							<td class='hsplayername'>3 - Player 32</td>
+							<td>------------</td>
+							<td>222</td>
+						</tr>
+						<tr>
+							<td class='hsplayername'>4 - Player 87</td>
+							<td>------------</td>
+							<td>126</td>
+						</tr>
+						<tr>
+							<td class='hsplayername'>5 - Player 40</td>
+							<td>------------</td>
+							<td>79</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+			<div class='chat'>
+				<h2>Chat</h2>
+				<div id='chatbox'>
+				</div>
+				<form action='add to chat // NEED CSRF_TOKEN' method='POST'>
+					Enter chat: <input class='addchatline' type="text" name="addchatline" maxlength="255">
+					<input class='chatsubmit' type="submit" name="chatsubmit" value="Send">
+				</form>
+				<span class='charsleft'>{value}/255 characters left</span>
+			</div>
+		</div>
+	</div>
+
 </body>
 </html>
